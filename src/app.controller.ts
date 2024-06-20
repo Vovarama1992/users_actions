@@ -17,7 +17,6 @@ import {
   ActionDto,
 } from './dto';
 
-
 @Controller()
 export class AppController {
   constructor(
@@ -102,7 +101,7 @@ export class AppController {
   ): Promise<UserDto | null> {
     const user = await this.userService.emailUpdate(id, emailUserDto);
     if (user) {
-      await this.actionService.createAction(id, 'update', emailUserDto);
+      await this.actionService.createAction(id, 'email_update', emailUserDto);
       return {
         id: user.id,
         email: user.email,
@@ -127,7 +126,11 @@ export class AppController {
   ): Promise<UserDto | null> {
     const user = await this.userService.passwordUpdate(id, passwordUserDto);
     if (user) {
-      await this.actionService.createAction(id, 'update', passwordUserDto);
+      await this.actionService.createAction(
+        id,
+        'password_update',
+        passwordUserDto,
+      );
       return {
         id: user.id,
         email: user.email,
